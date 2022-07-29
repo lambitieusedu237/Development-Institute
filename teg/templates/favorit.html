@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h3>your whishing list</h3> 
+    <div class="container">
+        {% if favorit.article.all %}
+        {% for article in favorit.article.all %}
+        <div class=" row card-body">
+        <div class="bg-light" style="width: 70%;">
+            <img class="img-fluid" src="{{ article.photo.url }}" alt="" width="100">
+            <span class="h6 text-decoration-none text-truncate" href="">{{article.name}}</span>
+            <form method="post" action="{% url 'panier' article_id=article.id %}">
+                {% csrf_token %}
+            Select the size :<select name="taille" id="taile">
+                <option value="30">30</option>
+                <option value="32">32</option>
+                <option value="34">34</option>
+                <option value="36">36</option>
+                <option value="38">38</option>
+                <option value="40">40</option>
+                <option value="42">42</option>
+                <option value="44">44</option>
+                <option value="46">46</option>
+            </select>
+            Select the quantity 
+            <input type="number" id="quantity" name="quantity" value="1" max_value="{{article.quantity}}">
+            <button class="btn btn-outline-dark" href="" type="submit" >Add To Cart <i class="fa fa-shopping-cart"></i></button>
+        </form>
+        </div>
+    </div>
+        {% endfor %}
+        {% else %}
+        <h4>your wishing list is empty</h4>
+        {% endif %}
+    
+    </div>
+    {% endblock %}

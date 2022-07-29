@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="px-4 px-lg-0">
+    <!-- For demo purpose -->
+    <div class="container text-white py-5 text-center">
+      <h1 class="display-4">TEG SHOP</h1>
+      </p>
+    </div>
+    <!-- End -->
+  
+    <div class="pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+        
+                    <!-- Shopping cart table -->
+                    <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="border-0 bg-light">
+                            <div class="p-2 px-3 text-uppercase">Product</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                            <div class="py-2 text-uppercase">Price</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                            <div class="py-2 text-uppercase">Quantity</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Description</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="border-0">
+                            <div class="p-2">
+                                <img src="{{article.photo.url}}" alt="" width="70" class="">
+                                <div class="ml-3 d-inline-block align-middle">
+                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">{{article.name}}</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: {{article.category.all.0.c_name}}</span>
+                                </div>
+                            </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>{{article.prix}}</strong></td>
+                            <td class="border-0 align-middle"><strong>{{article.quantity}}</strong></td>
+                            <td class="h6 text-decoration-none text-truncate" href="">{{article.description}}</td>
+                        </tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <form method="post" action="{% url 'panier' article_id=article.id %}">
+                        {% csrf_token %}
+                    Select the size :<select name="taille" id="taile">
+                        <option value="30">30</option>
+                        <option value="32">32</option>
+                        <option value="34">34</option>
+                        <option value="36">36</option>
+                        <option value="38">38</option>
+                        <option value="40">40</option>
+                        <option value="42">42</option>
+                        <option value="44">44</option>
+                        <option value="46">46</option>
+                    </select>
+                    Select the quantity 
+                    <input type="number" id="quantity" name="quantity" value="1" max_value="{{article.quantity}}">
+                    <button class="btn btn-outline-dark" href="" type="submit" >Add To Cart <i class="fa fa-shopping-cart"></i></button>
+                </form>
+                    </div>
+                    
+                    <!-- End -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

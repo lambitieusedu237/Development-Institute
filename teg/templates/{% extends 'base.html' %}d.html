@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+    <!-- details start -->
+    {% block content %}
+    
+        <img class="img-fluid" src="{{ article.photo.url }}" alt="" width="100">
+        <span class="h6 text-decoration-none text-truncate" href="">{{article.name}}</span>
+        <br><span class="h6 text-decoration-none float-right" href="">${{article.prix}}</span>
+    </div>
+    <div class="container-fluid pt-5 pb-3">
+        <div class=" row card-body">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ article.photo.url }}" alt="" style="width: 20%; height: 20%">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <a class="h6 text-decoration-none text-truncate" href="">{{article.name}}</a>
+                    <div class="bg-light" style="width: 70%;">
+                        <p class="h6 text-decoration-none text-truncate" href="">{{article.description}}</p>
+                        <p class="h6 text-decoration-none text-truncate" href="">{{article.Category}}</p>
+                        <p class="h6 text-decoration-none text-truncate" href="">qty:{{article.quantity}}</p>
+                        <p class="h6 text-decoration-none text-truncate" href="">taille disponible:{{article.taille}}</p>
+                        <p class="h6 text-decoration-none text-truncate" href="">couleur disponible:{{article.couleur}}</p>
+                        <p class="h6 text-decoration-none text-truncate" href="">{{article.description}}</p>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>${{article.prix}}</h5>
+                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <button><a href="{% url 'panier' article_id=article.id %} ">Ajoutée dans le panier</a></button>
+    <!-- details end -->
+    {% endblock %}

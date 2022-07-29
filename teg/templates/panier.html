@@ -1,0 +1,144 @@
+   {% extends 'base.html' %}
+   {% block content %}
+   {% load static %}
+
+<div class="container px-3 my-5 clearfix">
+    <!-- Shopping cart table -->
+    <div class="card">
+        <div class="card-header">
+            <h2>TEG SHOP</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered m-0">
+                <thead>
+                  <tr>
+                    <!-- Set columns width -->
+                    <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+                    <th class="text-right py-3 px-4" style="width: 100px;">Price(FCFA) </th>
+                    <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                    <th class="text-right py-3 px-4" style="width: 100px;">Delete</th>
+                    <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if panier %}
+                    {% for row in panier %}
+                  <tr>
+                    
+                    <td class="p-4">
+                      <div class="media align-items-center">
+                        <img class="img-fluid" src="{{ row.article.photo.url }}" alt="" width="100">
+                        <div class="media-body">
+                          <a href="#" class="d-block text-dark">{{row.article.name}}</a>
+                          <small>
+                            <span class="text-muted">Color:</span>
+                            <span class="ui-product-color ui-product-color-sm align-text-bottom" style="background:#e81e2c;"></span> &nbsp;
+                            <span class="text-muted">Size: </span> {{row.taille}}
+                          </small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right font-weight-semibold align-middle p-4">{{row.article.prix}}</td>
+                    <td class="align-middle p-4">{{row.quantity}}</td>
+                    <td class="text-center align-middle px-0"><a href="{% url 'delete' article_id=row.article.id %}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">x</a></td>
+                    {% endfor %}
+                    {% else %}
+                    <h4>your basket is empty</h4>
+                    {% endif %}
+                </tr>
+        
+                </tbody>
+              </table>
+            </div>
+            <!-- / Shopping cart table -->
+        
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+                <div class="text-right mt-4">
+                  <label class="text-muted font-weight-normal m-0">Total price</label>
+                  <div class="text-large"><strong>{{total_price}}FCFA</strong></div>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Confirmer</button>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+                                        <!-- Credit card form tabs -->
+                                        <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
+                                            <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Credit Card </a> </li>
+                                            <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Paypal </a> </li>
+                                            <li class="nav-item"> <a data-toggle="pill" href="#OM" class="nav-link "> <i class="fas fa-mobile- mr-2"></i> <img src="{% static 'om.jpg' %}" alt="" style="width:10%; height:10%"> Orange Money </a> </li>
+                                            <li class="nav-item"> <a data-toggle="pill" href="#MOMO" class="nav-link "> <i class="fas fa-mobile-money mr-2"></i> <img src="{% static 'momo.png' %}" alt="" style="width:10%; height:10%"> Mobile Money </a> </li>
+
+                                        </ul>
+                                    </div> <!-- End -->
+                                    <!-- Credit card form content -->
+                                    <div class="tab-content">
+                                        <!-- credit card info-->
+                                        <div id="credit-card" class="tab-pane fade show active pt-3">
+                                            <form role="form" onsubmit="event.preventDefault()">
+                                                <div class="form-group"> <label for="username">
+                                                        <h6>Card Owner</h6>
+                                                    </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                                <div class="form-group"> <label for="cardNumber">
+                                                        <h6>Card number</h6>
+                                                    </label>
+                                                    <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>
+                                                        <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <div class="form-group"> <label><span class="hidden-xs">
+                                                                    <h6>Expiration Date</h6>
+                                                                </span></label>
+                                                            <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                                            </label> <input type="text" required class="form-control"> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
+                                            </form>
+                                        </div>
+                                    </div> <!-- End -->
+                                    <!-- Paypal info -->
+                                    <div id="paypal" class="tab-pane fade pt-3">
+                                        <h6 class="pb-2">Select your paypal account type</h6>
+                                        <div class="form-group ">
+                                            <form method="post"  role="form">
+                                                 {% csrf_token %}
+                                                 
+                                                <label class="radio-inline"> <input type="radio" name="optradio" checked> Domestic </label> <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5">International </label>
+                                                <p>You agree for a payment of XAF {{total_price}}</p>
+                                            </form>
+                                            <a href="{% url 'paypal-form' %}" class="btn btn-outline-info">Click here to proceed with paypal</a>
+                                        </div>
+                                    </div> <!-- End -->
+                                    <!-- bank transfer info -->
+                                    <div id="OM" class="tab-pane fade pt-3">
+                                        <div class="form-group">
+                                          <p>You agree for a payment of XAF {{total_price}}</p>
+                                            <p> <a href="{% url 'command' payement='orange money' %}"><button type="button" class="btn btn-primary "><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </a></p>
+                                        </div>
+                                        <p class="text-muted">Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                                    </div> <!-- End -->
+                                    <!-- End -->
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+  {% endblock %}
