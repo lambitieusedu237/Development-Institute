@@ -1,14 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>TEG SHOP</h1>
     <h3>NOTRE MISSION</h3>
-    <p>Nous avons plusieur d'aider tout les comercant de pouvoir agrandir leur marché et 
+    <p>Nous avons plusieur d'aider tout les comerçant de pouvoir agrandir leur marché et 
         ettandre leur clientelles
+        Nous sommes plus baser sur les produits locaux qui ont ete confectionnée par nous
     </p>
 
-    <h4>NOTRE HISTOIRE</h4>
-    <P>TEG SHOP synonime de Tout Est Grace le nom de notre maison parceque tout ceux qui ont 
-        partir ou qui a juste passer du temps avec moi la bas mon montrer et ont etee des guide 
-        pour moi </P>
+    <h3>NOTRE HISTOIRE</h3>
+    <P>voir des gens qui ont des bon produits mais qui n'ont pas la possibilitée d'engrandir 
+        leur commerce parcequ'il sont cacher dans les sous quartier et conssore est la raison 
+        primaire de la creation de ce cite web pour les aider a pouvoir agrandir leur territoire
+        et je sais une chose chez les africain c'est l'union qui fais leurs force du moments 
+        qu'ils vont voir made in africa ils vont vouloir essayez et quand ils vont essayez 
+        ils vont callée
+     </P>
+    
+    <h3>NOS PRODUITS</h3>
+
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            {% for category in categories %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{% url 'category' category_id=category.id %}">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            {% if category.photo %} <img class="img-fluid" src="{{ category.photo.url }}" alt="">{% endif %} 
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>{{category.c_name}}</h6>
+                            <small class="text-body">{{category.quantity}} Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %} 
+        </div>
+    </div>
 
 {% endblock %}

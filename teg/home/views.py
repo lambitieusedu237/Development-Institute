@@ -139,7 +139,13 @@ def favorit(request):
     return render(request, 'favorit.html', context)
 
 def about(request):
-    return render(request, 'about.html')
+    all_categories = Category.objects.all()
+
+    context = {
+        'categories': all_categories,
+    }
+
+    return render(request, 'about.html', context)
 
 
 def command(request, payement):

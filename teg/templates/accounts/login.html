@@ -17,11 +17,6 @@
 	<div class="left">
 		<div class="overlay">
 		<h1>welcome to TEG SHOP</h1>
-		<span>
-			<p>login with social media</p>
-			<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-			<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i> Login with Twitter</a>
-		</span>
 		</div>
 	</div>
 	
@@ -29,6 +24,8 @@
 		<div class="right">
 		<h5>Login</h5>
 		<p>Don't have an account? <a href="{% url 'register' %} ">Create Your Account</a> it takes less than a minute</p>
+		<!-- alert -->
+			{% include 'network/alert.html' %}
 		<form method="post">
 			{% csrf_token %}
 		<div class="inputs">
